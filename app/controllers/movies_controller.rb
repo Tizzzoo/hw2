@@ -8,8 +8,20 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-  end
+    @sort = params[:sort]
 
+    if @sort == "title"
+      @movies.sort_by!{|movie|
+        movie.title
+     }
+
+    elsif @sort == "date"
+      @movies.sort_by! { |movie|
+        movie.release_date
+        }
+    end
+  end
+  
   def new
     # default: render 'new' template
   end
